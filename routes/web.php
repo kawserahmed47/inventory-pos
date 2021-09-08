@@ -1,6 +1,16 @@
 <?php
 
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductTypeController;
+use App\Http\Controllers\ProductUnitController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
+use phpDocumentor\Reflection\Types\Resource_;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,5 +69,21 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
+
+	
+	Route::resource('employee', EmployeeController::class);
+	Route::resource('supplier', SupplierController::class);
+	Route::resource('customer', CustomerController::class);
+
+
+	Route::resource('brand', BrandController::class);
+	Route::resource('category', CategoryController::class);
+	Route::resource('productType', ProductTypeController::class);
+	Route::resource('product', ProductController::class);
+	Route::resource('productUnit', ProductUnitController::class);
+	Route::resource('order', OrderController::class);
+
+
+
 });
 

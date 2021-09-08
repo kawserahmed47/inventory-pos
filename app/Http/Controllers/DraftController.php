@@ -7,78 +7,43 @@ use Illuminate\Http\Request;
 
 class DraftController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
-        //
+        return view('pages.draft.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        //
+        return view('pages.draft.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Draft  $draft
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Draft $draft)
+
+    public function show($id)
+    {
+        return view('pages.draft.show');
+    }
+
+
+    public function edit($id)
+    {
+        return view('pages.draft.edit');
+    }
+
+
+    public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Draft  $draft
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Draft $draft)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Draft  $draft
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Draft $draft)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Draft  $draft
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Draft $draft)
+    public function destroy($id)
     {
         //
     }
