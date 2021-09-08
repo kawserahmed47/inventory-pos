@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOtherCostsTable extends Migration
+class CreateSupplierPaymentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateOtherCostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('other_costs', function (Blueprint $table) {
+        Schema::create('supplier_payments', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+
+            $table->bigInteger('supplier_id');
+            $table->string('supplier_id_no')->nullable();
+
             $table->double('payable_amount', 8, 2)->default(0.00);
             $table->double('paid_amount', 8, 2)->default(0.00);
             $table->double('due_amount', 8, 2)->default(0.00);
@@ -35,6 +38,6 @@ class CreateOtherCostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('other_costs');
+        Schema::dropIfExists('supplier_payments');
     }
 }

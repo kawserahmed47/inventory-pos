@@ -15,6 +15,12 @@ class CreateProductUnitImagesTable extends Migration
     {
         Schema::create('product_unit_images', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('image');
+            $table->string('description')->nullable();
+            $table->tinyInteger('status')->default(1);
+            $table->bigInteger('created_by');
+            $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }
