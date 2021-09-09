@@ -19,7 +19,7 @@
 
               <div class="card-body ">
 
-         
+                <h1>{{$productType->name}}</h1>
 
 
 

@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BrandController extends Controller
 {
     
     public function index()
     {
-       return view('pages.brand.index');
+        $data['brands'] = Brand::all();
+       return view('pages.brand.index',$data);
     }
 
  
@@ -19,59 +21,46 @@ class BrandController extends Controller
         return view('pages.brand.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $brand = new Brand();
+        $brand->name = $request->name;
+        $brand->description = $request->description;
+        $brand->created_by = Auth::id();
+        $brand->save();
+
+        return redirect()->route('brand.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Brand  $brand
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        return view('pages.brand.show');
+        $data['brand'] = Brand::find($id);
+        return view('pages.brand.show', $data);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Brand  $brand
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit( $id)
     {
-        return view('pages.brand.edit');
+        $data['brand'] = Brand::find($id);
+        return view('pages.brand.edit', $data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Brand  $brand
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Brand $brand)
+
+    public function update(Request $request, $id)
     {
-        //
+        $brand =  Brand::find($id);
+        $brand->name = $request->name;
+        $brand->description = $request->description;
+        $brand->updated_by = Auth::id();
+        $brand->save();
+        return redirect()->route('brand.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Brand  $brand
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Brand $brand)
+
+    public function destroy($id)
     {
-        //
+       $brand = Brand::find($id);
+       $brand->delete();
+       return redirect()->route('brand.index');
     }
 }

@@ -22,7 +22,7 @@
          
 
 
-
+                <h1>{{$productUnit->name}}</h1>
 
 
 

@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductTypeController extends Controller
 {
     
     public function index()
     {
-        return view('pages.product_type.index');
+        $data['productTypes'] = ProductType::all();
+        return view('pages.product_type.index',$data);
     }
 
 
@@ -21,30 +23,45 @@ class ProductTypeController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $productType = new ProductType();
+        $productType->name = $request->name;
+        $productType->description = $request->description;
+        $productType->created_by = Auth::id();
+        $productType->save();
+        return  redirect()->route('productType.index');
     }
 
 
     public function show($id)
     {
-        return view('pages.product_type.show');
+        $data['productType'] = ProductType::find($id);
+        return view('pages.product_type.show', $data);
     }
 
 
     public function edit($id)
     {
-        return view('pages.product_type.edit');
+        $data['productType'] = ProductType::find($id);
+        return view('pages.product_type.edit', $data);
     }
 
 
     public function update(Request $request, $id)
     {
-        //
+        $productType =  ProductType::find($id);
+        $productType->name = $request->name;
+        $productType->description = $request->description;
+        $productType->updated_by = Auth::id();
+        $productType->save();
+        return  redirect()->route('productType.index');
     }
 
 
     public function destroy($id)
     {
-        //
+        $productType = ProductType::find($id);
+        $productType->delete();
+        return  redirect()->route('productType.index');
+
     }
 }

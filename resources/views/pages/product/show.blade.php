@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'order', 'titlePage' => __('Order')])
+@extends('layouts.app', ['activePage' => 'product', 'titlePage' => __('Product')])
 
 @section('content')
   <div class="content">
@@ -13,8 +13,8 @@
             <div class="card ">
 
               <div class="card-header card-header-primary">
-                <h4 class="card-title">{{ __('View Order') }}</h4>
-                <p class="card-category">{{ __('Order information') }}</p>
+                <h4 class="card-title">{{ __('Show Product') }}</h4>
+                <p class="card-category">{{ __('Product information') }}</p>
               </div>
 
               <div class="card-body ">
@@ -22,7 +22,7 @@
          
 
 
-
+                <h1>{{$product->name}}</h1>
 
 
 

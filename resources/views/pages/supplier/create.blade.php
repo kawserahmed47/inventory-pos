@@ -8,7 +8,7 @@
 
       <div class="row">
         <div class="col-md-12">
-          <form method="post" action="" autocomplete="off" class="form-horizontal">
+          <form method="post" action="{{route('supplier.store')}}" enctype="multipart/form-data" autocomplete="off" class="form-horizontal">
             @csrf
 
             <div class="card ">

@@ -8,7 +8,7 @@
 
       <div class="row">
         <div class="col-md-12">
-          <form method="post" action="" autocomplete="off" class="form-horizontal">
+          <form method="post" action="{{route('product.store')}}" enctype="multipart/form-data" autocomplete="off" class="form-horizontal">
             @csrf
 
             <div class="card ">
@@ -20,7 +20,59 @@
 
               <div class="card-body ">
 
-         
+                <div class="row">
+                  <label class="col-sm-2 col-form-label">{{ __('Brand') }}</label>
+                  <div class="col-sm-7">
+                    <div class="form-group">
+                      <select name="brand_id" class="form-control" id="brand" required>
+                        <option value="">--</option>
+                        @if ($brands)
+                          @foreach ($brands as $brand)
+                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+
+                          @endforeach
+                            
+                        @endif
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <label class="col-sm-2 col-form-label">{{ __('Category') }}</label>
+                  <div class="col-sm-7">
+                    <div class="form-group">
+                      <select name="category_id" class="form-control" id="category" required>
+                        <option value="">--</option>
+                        @if ($categories)
+                          @foreach ($categories as $category)
+                            <option value="{{$category->id}}">{{$category->name}}</option>
+
+                          @endforeach
+                            
+                        @endif
+                      </select>                    
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <label class="col-sm-2 col-form-label">{{ __('Product Type') }}</label>
+                  <div class="col-sm-7">
+                    <div class="form-group">
+                      <select name="product_type_id" class="form-control" id="productType" >
+                        <option value="">--</option>
+                        @if ($productTypes)
+                          @foreach ($productTypes as $productType)
+                            <option value="{{$productType->id}}">{{$productType->name}}</option>
+
+                          @endforeach
+                            
+                        @endif
+                      </select>                     
+                    </div>
+                  </div>
+                </div>
 
                 <div class="row">
                   <label class="col-sm-2 col-form-label">{{ __('Name') }}</label>

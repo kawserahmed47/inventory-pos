@@ -20,7 +20,7 @@
               <div class="card-body ">
 
          
-
+                <h1>{{$category->name}}</h1>
 
 
 

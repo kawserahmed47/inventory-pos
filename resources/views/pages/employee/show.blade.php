@@ -21,7 +21,7 @@
 
          
 
-
+                <h1>{{$employee->name}}</h1>
 
 
 
