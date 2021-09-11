@@ -5,9 +5,33 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
+
 
 class EmployeeController extends Controller
 {
+
+    function generateIDNumber()
+    {
+
+        // $number = mt_rand(1000000000, 9999999999); // better than rand()
+        $number =   IdGenerator::generate(['table' => 'employees', 'field'=>'id_no', 'length' => 8,  'prefix' =>200]);
+
+
+        // call the same function if the barcode exists already
+        if ($this->idNumberExists($number)) {
+            return $this->generateIDNumber();
+        }
+
+        // otherwise, it's valid and can be used
+        return $number;
+    }
+
+    function idNumberExists($number)
+    {
+        // query the database and return a boolean
+        return Employee::where('id_no', $number)->exists();
+    }
     
     public function index()
     {
@@ -24,6 +48,7 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         $employee = new Employee();
+        $employee->id_no = $this->generateIDNumber();
         $employee->name = $request->name;
         $employee->description = $request->description;
         $employee->created_by = Auth::id();

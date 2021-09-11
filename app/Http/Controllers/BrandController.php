@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class BrandController extends Controller
 {
@@ -28,7 +29,6 @@ class BrandController extends Controller
         $brand->description = $request->description;
         $brand->created_by = Auth::id();
         $brand->save();
-
         return redirect()->route('brand.index');
     }
 

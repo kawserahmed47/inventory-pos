@@ -15,6 +15,7 @@ class CreateCompanyInformationTable extends Migration
     {
         Schema::create('company_information', function (Blueprint $table) {
             $table->id();
+            
             $table->string('name');
             $table->string('mobile');
             $table->string('phone');
@@ -35,6 +36,9 @@ class CreateCompanyInformationTable extends Migration
             $table->text('vision');
             $table->text('message');
             $table->text('address');
+
+            $table->bigInteger('created_by');
+            $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

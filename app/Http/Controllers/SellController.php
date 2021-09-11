@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
+use App\Models\ProductUnit;
 use App\Models\Sell;
 use Illuminate\Http\Request;
 
@@ -24,7 +26,12 @@ class SellController extends Controller
      */
     public function create()
     {
-        //
+
+        $data['products'] = ProductUnit::with('product')->get();
+        $data['customers'] = Customer::get();
+
+        // return response()->json($data, 200);
+       return view('pages.sell.create', $data);
     }
 
     /**

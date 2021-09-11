@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\ProductType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -30,6 +31,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $product = new Product();
+        $product->slug = Str::slug($request->name, "-");
         $product->brand_id = $request->brand_id;
         $product->category_id = $request->category_id;
         $product->product_type_id = $request->product_type_id;
@@ -73,6 +75,7 @@ class ProductController extends Controller
         $product->category_id = $request->category_id;
         $product->product_type_id = $request->product_type_id;
         $product->name = $request->name;
+        $product->slug = Str::slug($request->name, "-");
         $product->description = $request->description;
         $product->updated_by = Auth::id();
         $product->save();

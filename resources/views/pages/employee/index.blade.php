@@ -27,9 +27,9 @@
                                     <table class="table">
                                         <thead class=" text-primary">
                                             <tr>
-                                                <td>
+                                                <th>
                                                     #SL
-                                                </td>
+                                                </th>
                                                 <th>
                                                     Name
                                                 </th>

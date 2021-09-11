@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ProductType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ProductTypeController extends Controller
 {
@@ -25,6 +26,7 @@ class ProductTypeController extends Controller
     {
         $productType = new ProductType();
         $productType->name = $request->name;
+        $productType->slug = Str::slug($request->name, "-");
         $productType->description = $request->description;
         $productType->created_by = Auth::id();
         $productType->save();
@@ -49,6 +51,7 @@ class ProductTypeController extends Controller
     public function update(Request $request, $id)
     {
         $productType =  ProductType::find($id);
+        $productType->slug = Str::slug($request->name, "-");
         $productType->name = $request->name;
         $productType->description = $request->description;
         $productType->updated_by = Auth::id();

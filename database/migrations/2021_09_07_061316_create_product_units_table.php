@@ -20,6 +20,11 @@ class CreateProductUnitsTable extends Migration
             $table->bigInteger('supplier_id');
 
             $table->string('name');
+            
+            $table->string('slug')->unique()->nullable();
+
+            $table->integer('packet_quantity')->default(0)->nullable();
+
             $table->integer('available_stock')->default(0);
             $table->double('supplier_price', 8, 2)->default(0.00);
             $table->double('max_retail_price', 8, 2)->default(0.00);

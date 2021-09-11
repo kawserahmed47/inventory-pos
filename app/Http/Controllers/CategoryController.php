@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
+
+
     
     public function index()
     {
@@ -23,11 +26,12 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $brand = new Category();
-        $brand->name = $request->name;
-        $brand->description = $request->description;
-        $brand->created_by = Auth::id();
-        $brand->save();
+        $category = new Category();
+        $category->name = $request->name;
+        $category->parent_id = $request->parent_id ? $request->parent_id : 0;
+        $category->description = $request->description;
+        $category->created_by = Auth::id();
+        $category->save();
 
         return redirect()->route('category.index');
     }
@@ -49,11 +53,12 @@ class CategoryController extends Controller
 
     public function update(Request $request, $id)
     {
-        $brand =  Category::find($id);
-        $brand->name = $request->name;
-        $brand->description = $request->description;
-        $brand->updated_by = Auth::id();
-        $brand->save();
+        $category =  Category::find($id);
+        $category->name = $request->name;
+        $category->parent_id = $request->parent_id ? $request->parent_id : 0;
+        $category->description = $request->description;
+        $category->updated_by = Auth::id();
+        $category->save();
 
         return redirect()->route('category.index');
     }
