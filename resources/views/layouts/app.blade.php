@@ -102,6 +102,11 @@
           </div>
         </div>
         @endif
+
+
+          <script type="text/javascript">
+            var APP_URL = {!! json_encode(url('/')) !!}
+          </script>
         <!--   Core JS Files   -->
         <script src="{{ asset('material') }}/js/core/jquery.min.js"></script>
         <script src="{{ asset('material') }}/js/core/popper.min.js"></script>

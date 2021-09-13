@@ -21,10 +21,21 @@ class CartController extends Controller
     }
 
     public function cartInfo(){
-         $data['getTotal'] = \Cart::getTotal();
+        $data['getTotal'] = \Cart::getTotal();
         $data['getSubTotal'] = \Cart::getSubTotal();
         
         return response()->json($data,200);
+    }
+
+    public function cartClear(){
+
+        \Cart::clear();
+
+
+        $data['status'] = true;
+        $data['message'] = "Cart clear successfully";
+        return response()->json($data,200);
+
     }
 
 

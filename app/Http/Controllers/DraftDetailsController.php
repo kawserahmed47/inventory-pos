@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\DraftDetails;
 use Illuminate\Http\Request;
+use Darryldecode\Cart\Cart;
+
 
 class DraftDetailsController extends Controller
 {

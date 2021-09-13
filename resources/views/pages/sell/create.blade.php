@@ -136,7 +136,7 @@
                <div class="row">
                    <div class="col-md-12">
                        <div class="table responsive">
-                           <table>
+                           <table class="table">
                                <thead>
                                    <tr>
                                        <th>#SL</th>
@@ -226,20 +226,25 @@
             </div>
 
 
-          </form>
         </div>
         <div class="col-md-4">
       
-
+        <form class="confirmSellForm" method="POST">
+            @csrf
             <div class="card ">
 
               <div class="card-header card-header-warning">
                 <h4 class="card-title">{{ __('Select Customer') }}  <span class="float-right"><button class="btn btn-sm btn-secondary">Add New</button></span></h4>
-                <select name="" class="form-control">
+                <select name="customer_id" class="form-control">
                     <option value="">Search Customer or Scan By Card</option>
-                    <option value="">Customer One</option>
-                    <option value="">Customer Two</option>
-                    <option value="">Customer Theree</option>
+                    @if ($customers)
+
+                    @foreach ($customers as $customer)
+                    <option value="{{$customer->id}}">{{$customer->name}}</option>
+
+                    @endforeach
+                        
+                    @endif
                 </select>
                 
               </div>
@@ -287,6 +292,7 @@
                             <tr>
                                 <th>Total Payable :</th>
                                 <th> <span class="totalPayable">  {{Cart::getTotal()}} </span> /=</th>
+                                <input type="hidden" name="total_product_unit_amount" class="totalProductAmount" value=" {{Cart::getTotal()}}">
                             </tr>
                            
                         </table>
@@ -296,32 +302,65 @@
                 </div>
 
 
-                <br>
-                <br>
-                <br>
 
+                @if(Cart::getTotal()>0)
 
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="radio" class="payment_method" required name="payment_method" value="1" id="cash">
+                        <label for="cash">Cash</label>
+                        <input type="radio" class="payment_method"  name="payment_method" value="2" id="card">
+                        <label for="card">Card</label>
+                        <input type="radio" class="payment_method"  name="payment_method" value="3" id="mobile">
+                        <label for="mobile">Mobile Banking</label>
+                        <input type="radio" class="payment_method"  name="payment_method" value="4" id="other">
+                        <label for="other">Other</label>
+                    </div>
+                </div>
 
+                <div class="row forCashPayment" style="display: none" >
+                    <div class="col-md-6">
+                        <label for="given_amount">Given Amount</label>
+                        <input class="form-control"  type="number" name="given_amount"  id="given_amount">                      
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="change_amount">Chagne Amount</label> <br>
+                        <span id="change_amount" class="change_amounts">0.00 /=</span>
+                        <input type="hidden" class="change_amount_i" name="change_amount" value="0.00">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="comment_payment">Comment</label>
+                        <textarea class="form-control" name="description" id="comment_payment" rows="3"></textarea>
+                    </div>
+
+                </div>
+
+                
                 <div class="row text-center">
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-success btn-block">{{ __(' Confirm Sell ') }}</button>
-
                     </div>
-                
-
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 float-left">
-                        <button type="submit" class="btn btn-info  btn-block">{{ __('Save') }}</button>
+                        <button type="button" onclick="saveSell()" class="btn btn-info  btn-block">{{ __('Save') }}</button>
 
                     </div>
                     <div class="col-md-6 float-right">
-                        <button type="submit" class="btn btn-danger  btn-block">{{ __('Cancel') }}</button>
+                        <button type="button" onclick="cancelSell()" class="btn btn-danger  btn-block">{{ __('Cancel') }}</button>
 
                     </div>
 
                 </div>
+                @endif
+
+
+
                
               
 
@@ -376,6 +415,31 @@ cartInfo();
                 }
             })
 
+            $('.payment_method').on('change', function(){
+                var paymentMethod = $(this).val();
+                if(paymentMethod == 1){
+                    $('.forCashPayment').show();
+                    $('#given_amount').attr('required', 'required');
+                }else{
+                    $('#given_amount').removeAttr('required');
+
+                    $('.forCashPayment').hide();
+
+                }
+            })
+
+            $('#given_amount').on('change', function(){
+                var totalAmount = $('.totalProductAmount').val();
+                var givenAmount = $(this).val();
+                var changeAmount = (givenAmount-totalAmount);
+
+                $('.change_amount_i').val(changeAmount);
+                $('.change_amounts').html(changeAmount);
+              
+
+
+            })
+
 
 
 
@@ -407,7 +471,9 @@ cartInfo();
                            
                            
                         viewCart();
-                        cartInfo()
+                        cartInfo();
+                        location.reload();
+
                     }else{
                        
                         const Toast = Swal.mixin({
@@ -439,34 +505,92 @@ cartInfo();
             var id = $(this).val();
             if(id){
                 $.ajax({
-            url: "{{route('cart.addProduct')}}",
-            type: "get",
-            data: {
-                id : id,
-            },
-            success:function(response){
+                        url: "{{route('cart.addProduct')}}",
+                        type: "get",
+                        data: {
+                            id : id,
+                        },
+                        success:function(response){
 
-                const Toast = Swal.mixin({
-                            toast: true,
-                            position: 'top-end',
-                            showConfirmButton: false,
-                            timer: 3000,
-                         
-                            })
+                            const Toast = Swal.mixin({
+                                        toast: true,
+                                        position: 'top-end',
+                                        showConfirmButton: false,
+                                        timer: 3000,
+                                    
+                                        })
 
-                            Toast.fire({
-                                type: 'success',
-                                title: 'Added successfully'
-                            })
-                viewCart();
-                cartInfo();
+                                        Toast.fire({
+                                            type: 'success',
+                                            title: 'Added successfully'
+                                        })
 
-            },
-            error:function(err){
+                            viewCart();
+                            cartInfo();
 
+                            location.reload();
+
+
+                        },
+                        error:function(err){
+
+                        }
+                });
             }
-    });
-            }
+
+        })
+
+
+        $('.confirmSellForm').on('submit', function(e){
+            e.preventDefault();
+
+            var formData = $(this).serialize();
+            $.ajax({
+                    url: "{{route('sell.store')}}",
+                    type: "post",
+                    data: formData,
+                    success:function(response){
+
+                        const Toast = Swal.mixin({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timer: 3000,
+                                
+                                    })
+
+                                    Toast.fire({
+                                        type: 'success',
+                                        title: 'Sell successfully'
+                                    })
+
+                                    setTimeout(function(){
+                                        window.open(APP_URL+"/sells/success/"+response.sell_no); 
+
+                                    },3000)
+
+                                    // location.reload();
+
+
+
+                    },
+                    error:function(err){
+
+                        const Toast = Swal.mixin({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timer: 3000,
+                                
+                                    })
+
+                                    Toast.fire({
+                                        type: 'error',
+                                        title: 'Server Error'
+                                    })
+
+                    }
+                });
 
         })
         
@@ -495,6 +619,7 @@ cartInfo();
             success:function(response){
 
              $('.cartBody').html(response);
+             
 
             },
             error:function(err){
@@ -595,6 +720,77 @@ cartInfo();
     });
 
 
+
+  }
+
+
+
+//   function confirmSell(){
+
+//     $.ajax({
+//             url: "{{route('cart.index')}}",
+//             type: "get",
+//             success:function(response){
+
+//              $('.cartBody').html(response);
+
+//             },
+//             error:function(err){
+
+//             }
+//         });
+
+//   }
+
+  function saveSell(){
+
+    $.ajax({
+            url: "{{route('cart.index')}}",
+            type: "get",
+            success:function(response){
+
+            //  $('.cartBody').html(response);
+
+            },
+            error:function(err){
+
+            }
+        });
+
+  }
+
+  function cancelSell(){
+
+    $.ajax({
+            url: "{{route('cart.cancel')}}",
+            type: "get",
+            success:function(response){
+
+                const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                         
+                            })
+
+                            Toast.fire({
+                                type: 'success',
+                                title: 'Added successfully'
+                            })
+
+                            setTimeout(function(){
+                                location.reload();
+
+                            },2000)
+
+
+
+            },
+            error:function(err){
+
+            }
+        });
 
   }
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\OrderDetails;
 use Illuminate\Http\Request;
+use Darryldecode\Cart\Cart;
+
 
 class OrderDetailsController extends Controller
 {

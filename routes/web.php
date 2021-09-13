@@ -90,6 +90,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/cart-quantity-update', [CartController::class, 'update'])->name('cart.quantity');
 	Route::get('/cart-add-product', [CartController::class, 'addProduct'])->name('cart.addProduct');
 	Route::get('/cart-info', [CartController::class, 'cartInfo'])->name('cart.info');
+	Route::get('/cart-clear', [CartController::class, 'cartClear' ])->name('cart.cancel');
+	Route::get('/sells/receipt/{sell_no}', [SellController::class, 'receipt'])->name('sell.receipt');
+	Route::get('/sells/success/{sell_no}', [SellController::class, 'success'])->name('sell.success');
+
 
 
 });

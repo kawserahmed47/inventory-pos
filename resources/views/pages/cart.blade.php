@@ -13,7 +13,8 @@
         <td>
            
           
-                <span> <button type="button" class="btn btn-sm btn-link btn-dark"> {{++$index}}</button> <button type="button" onclick="removeItem({{$key}})" class="btn btn-sm btn-link btn-danger"> <i class="fa fa-times"></i> </button> <button type="button"  onclick="updateItem({{$key}})" class="btn btn-sm btn-link btn-success"> <i class="fa fa-check"></i> </button> </span>
+                <span> <button type="button" class="btn btn-sm btn-link btn-dark"> {{++$index}}</button> <button type="button" onclick="removeItem({{$key}})" class="btn btn-sm btn-link btn-danger"> <i class="fa fa-times"></i> </button> </span>
+                {{--  <button type="button"  onclick="updateItem({{$key}})" class="btn btn-sm btn-link btn-success"> <i class="fa fa-check"></i> </button> --}}
  
         </td>
         <td><img src="{{$item->attributes->image}}" alt=""></td>

@@ -17,13 +17,13 @@ class CreateSellsTable extends Migration
             $table->id();
 
             $table->bigInteger('sell_no');
-            $table->bigInteger('customer_id');
-            $table->bigInteger('customer_id_no');
+            $table->bigInteger('customer_id')->nullable();
+            $table->bigInteger('customer_id_no')->nullable();
             $table->bigInteger('supplier_id');
             $table->bigInteger('supplier_id_no');
 
 
-            $table->string('customer_name');
+            $table->string('customer_name')->nullable();
             $table->string('mobile')->nullable();
             $table->string('email')->nullable();
             $table->string('address')->nullable();
@@ -44,6 +44,10 @@ class CreateSellsTable extends Migration
 
             $table->double('delivery_charge', 8, 2)->default(0.00);
             $table->double('total_order_cost', 8, 2)->default(0.00);
+
+            $table->double('given_amount', 8, 2)->default(0.00)->nullable();
+            $table->double('change_amount', 8, 2)->default(0.00)->nullable();
+
 
 
 

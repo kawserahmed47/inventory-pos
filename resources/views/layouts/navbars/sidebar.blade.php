@@ -224,7 +224,7 @@
               </a>
             </li>
 
-            <li class="nav-item {{ ($activePage == 'sellCreate') ? ' active' : '' }}">
+            <li class="nav-item {{ ($activePage == 'sellList') ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('sell.create') }}">
                 <span class="sidebar-mini"> UM </span>
                 <span class="sidebar-normal"> {{ __('List') }} </span>
