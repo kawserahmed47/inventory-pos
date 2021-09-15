@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DraftController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductTypeController;
@@ -25,9 +26,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[FrontendController::class, 'index'] )->name('index');
 
 Auth::routes();
 
@@ -100,6 +99,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/cart-clear', [CartController::class, 'cartClear' ])->name('cart.cancel');
 	Route::get('/sells/receipt/{sell_no}', [SellController::class, 'receipt'])->name('sell.receipt');
 	Route::get('/sells/success/{sell_no}', [SellController::class, 'success'])->name('sell.success');
+
+	Route::get('/cart-bar-load', [CartController::class, 'cartBarLoad' ]);
 
 
 

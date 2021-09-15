@@ -23,8 +23,18 @@ class CartController extends Controller
     public function cartInfo(){
         $data['getTotal'] = \Cart::getTotal();
         $data['getSubTotal'] = \Cart::getSubTotal();
-        
+        $data['cartCount'] = count(\Cart::getContent());
         return response()->json($data,200);
+    }
+
+    public function cartBarLoad(){
+
+
+        $data['items'] = \Cart::getContent();
+        $data['getTotal'] = \Cart::getTotal();
+        $data['getSubTotal'] = \Cart::getSubTotal();
+        return view('frontend.layouts.cart_bar', $data);
+
     }
 
     public function cartClear(){
