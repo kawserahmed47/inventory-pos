@@ -428,7 +428,7 @@ cartInfo();
                 }
             })
 
-            $('#given_amount').on('change', function(){
+            $('#given_amount').on('keyup', function(){
                 var totalAmount = $('.totalProductAmount').val();
                 var givenAmount = $(this).val();
                 var changeAmount = (givenAmount-totalAmount);
@@ -544,7 +544,9 @@ cartInfo();
         $('.confirmSellForm').on('submit', function(e){
             e.preventDefault();
 
-            var formData = $(this).serialize();
+            if(confirm("Are you sure to confirm sell?")){
+
+                var formData = $(this).serialize();
             $.ajax({
                     url: "{{route('sell.store')}}",
                     type: "post",
@@ -590,8 +592,17 @@ cartInfo();
                                     })
 
                     }
-                });
+            });
 
+            }else{
+                return false;
+            }
+
+           
+
+        
+        
+        
         })
         
     })
@@ -638,6 +649,8 @@ cartInfo();
 
             $('.productSubtotal').html(response.getSubTotal);
             $('.totalPayable').html(response.getTotal)
+            $('.totalProductAmount').val(response.getTotal)
+
 
             },
             error:function(err){
@@ -725,43 +738,78 @@ cartInfo();
 
 
 
-//   function confirmSell(){
 
-//     $.ajax({
-//             url: "{{route('cart.index')}}",
-//             type: "get",
-//             success:function(response){
-
-//              $('.cartBody').html(response);
-
-//             },
-//             error:function(err){
-
-//             }
-//         });
-
-//   }
 
   function saveSell(){
 
-    $.ajax({
-            url: "{{route('cart.index')}}",
-            type: "get",
-            success:function(response){
 
-            //  $('.cartBody').html(response);
+        if(confirm("Are you sure to save ?")){
+            var formData = $('.confirmSellForm').serialize();
+            $.ajax({
+                    url: "{{route('draft.store')}}",
+                    type: "post",
+                    data: formData,
+                    success:function(response){
 
-            },
-            error:function(err){
+                        const Toast = Swal.mixin({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timer: 3000,
+                                
+                                    })
 
-            }
-        });
+                                    Toast.fire({
+                                        type: 'success',
+                                        title: 'Saved successfully'
+                                    })
 
+                                    setTimeout(function(){
+                                    location.reload();
+
+                                    },3000)
+
+
+
+
+                    },
+                    error:function(err){
+
+                        const Toast = Swal.mixin({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timer: 3000,
+                                
+                                    })
+
+                                    Toast.fire({
+                                        type: 'error',
+                                        title: 'Server Error'
+                                    })
+
+                    }
+            });
+
+
+        }else{
+            return false
+        }
+
+          
+     
+
+
+  
+  
+  
   }
 
   function cancelSell(){
 
-    $.ajax({
+      if(confirm("Are you sure to cancel ?")){
+
+        $.ajax({
             url: "{{route('cart.cancel')}}",
             type: "get",
             success:function(response){
@@ -776,7 +824,7 @@ cartInfo();
 
                             Toast.fire({
                                 type: 'success',
-                                title: 'Added successfully'
+                                title: 'Cancel successfully'
                             })
 
                             setTimeout(function(){
@@ -790,7 +838,11 @@ cartInfo();
             error:function(err){
 
             }
-        });
+    });
+
+      }
+
+  
 
   }
 

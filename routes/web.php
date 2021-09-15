@@ -4,6 +4,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DraftController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -12,7 +13,6 @@ use App\Http\Controllers\ProductUnitController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
-use phpDocumentor\Reflection\Types\Resource_;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,7 +85,14 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('productUnit', ProductUnitController::class);
 	Route::resource('order', OrderController::class);
 	Route::resource('sell', SellController::class);
+
+	Route::get('all-sells', [SellController::class, 'allSells'])->name('sell.allSells');
+
 	Route::resource('cart', CartController::class);
+	Route::resource('draft', DraftController::class);
+
+	Route::get('all-drafts', [DraftController::class, 'allDrafts'])->name('draft.allDrafts');
+
 	Route::get('/cart-remove',[ CartController::class, 'destroy'])->name('cart.remove');
 	Route::get('/cart-quantity-update', [CartController::class, 'update'])->name('cart.quantity');
 	Route::get('/cart-add-product', [CartController::class, 'addProduct'])->name('cart.addProduct');

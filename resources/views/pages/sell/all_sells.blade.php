@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'sellList', 'titlePage' => __('Sell List')])
+@extends('layouts.app', ['activePage' => 'allSellsList', 'titlePage' => __('All Sell List')])
 
 @section('content')
     <div class="content">
@@ -20,7 +20,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12 text-right">
-                                        <a href="{{route('sell.create')}}" class="btn btn-sm btn-primary">Create new</a>
+                                        {{-- <a href="{{route('sell.create')}}" class="btn btn-sm btn-primary">Create new</a> --}}
                                     </div>
                                 </div>
                                 <div class="table-responsive">

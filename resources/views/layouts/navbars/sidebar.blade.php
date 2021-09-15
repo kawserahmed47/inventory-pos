@@ -207,14 +207,14 @@
         </div>
       </li>
 
-      <li class="nav-item {{ ($activePage == 'sellList' || $activePage == 'sellCreate') ? ' active' : '' }}">
-        <a class="nav-link" data-toggle="collapse" href="#order" aria-expanded="{{ ($activePage == 'sellList' || $activePage == 'sellCreate') ? ' true' : '' }}">
+      <li class="nav-item {{ ($activePage == 'sellList' || $activePage == 'sellCreate' || $activePage == 'draftList' || $activePage == 'allSellsList' || $activePage == 'allDraftsList' ) ? ' active' : '' }}">
+        <a class="nav-link" data-toggle="collapse" href="#sell" aria-expanded="{{ ($activePage == 'sellList' || $activePage == 'sellCreate' || $activePage == 'draftList' || $activePage == 'allSellsList' || $activePage == 'allDraftsList') ? ' true' : '' }}">
           <i><img style="width:25px" src="{{ asset('material') }}/img/laravel.svg"></i>
           <p>{{ __('Sell') }}
             <b class="caret"></b>
           </p>
         </a>
-        <div class="collapse {{ ($activePage == 'sellList' || $activePage == 'sellCreate') ? ' show' : '' }}" id="order">
+        <div class="collapse {{ ($activePage == 'sellList' || $activePage == 'sellCreate' || $activePage == 'draftList' || $activePage == 'allSellsList' || $activePage == 'allDraftsList' ) ? ' show' : '' }}" id="sell">
           <ul class="nav">
           
             <li class="nav-item {{ ($activePage == 'sellCreate') ? ' active' : '' }}">
@@ -225,9 +225,30 @@
             </li>
 
             <li class="nav-item {{ ($activePage == 'sellList') ? ' active' : '' }}">
-              <a class="nav-link" href="{{ route('sell.create') }}">
+              <a class="nav-link" href="{{ route('sell.index') }}">
                 <span class="sidebar-mini"> UM </span>
-                <span class="sidebar-normal"> {{ __('List') }} </span>
+                <span class="sidebar-normal"> {{ __('Sells List') }} </span>
+              </a>
+            </li>
+
+            <li class="nav-item {{ ($activePage == 'draftList') ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('draft.index') }}">
+                <span class="sidebar-mini"> UM </span>
+                <span class="sidebar-normal"> {{ __('Draft List') }} </span>
+              </a>
+            </li>
+
+            <li class="nav-item {{ ($activePage == 'allSellsList') ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('sell.allSells') }}">
+                <span class="sidebar-mini"> UM </span>
+                <span class="sidebar-normal"> {{ __('All Sells') }} </span>
+              </a>
+            </li>
+
+            <li class="nav-item {{ ($activePage == 'allDraftsList') ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('draft.allDrafts') }}">
+                <span class="sidebar-mini"> UM </span>
+                <span class="sidebar-normal"> {{ __('All Drafts') }} </span>
               </a>
             </li>
 

@@ -16,7 +16,13 @@ class SellController extends Controller
 
     public function index()
     {
-        //
+        $data['sells'] = Sell::with('sellDetails')->where('created_by', Auth::id())->orderBy('id', 'DESC')->get();
+        return view('pages.sell.index', $data);
+    }
+
+    public function allSells(){
+        $data['sells'] = Sell::with('sellDetails')->orderBy('id', 'DESC')->get();
+        return view('pages.sell.all_sells', $data);
     }
 
 
@@ -166,24 +172,29 @@ class SellController extends Controller
     }
 
 
-    public function show(Sell $sell)
+    public function show( $id)
     {
-        //
+        $data['sell'] = Sell::with(array('sellDetails'=>function($q1){
+            $q1->with('product', 'productUnit')->get();
+        }))->where('id', $id)->first();
+
+        return view('pages.sell.show', $data);
+
     }
 
-    public function edit(Sell $sell)
+    public function edit( $id)
     {
         //
     }
 
   
-    public function update(Request $request, Sell $sell)
+    public function update(Request $request,  $id)
     {
         //
     }
 
  
-    public function destroy(Sell $sell)
+    public function destroy($id)
     {
         //
     }

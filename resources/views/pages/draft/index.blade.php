@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'sellList', 'titlePage' => __('Sell List')])
+@extends('layouts.app', ['activePage' => 'draftList', 'titlePage' => __('Draft List')])
 
 @section('content')
     <div class="content">
@@ -13,8 +13,8 @@
                     <div class="card ">
 
                         <div class="card-header card-header-primary">
-                            <h4 class="card-title">{{ __('View Sells') }}</h4>
-                            <p class="card-category">{{ __('Sell information') }}</p>
+                            <h4 class="card-title">{{ __('View Drafts') }}</h4>
+                            <p class="card-category">{{ __('Draft information') }}</p>
                         </div>
 
                             <div class="card-body">
@@ -28,10 +28,10 @@
                                         <thead class=" text-primary">
                                             <tr>
                                                 <th>#SL</th>
-                                                <th>Order No</th>
+                                                <th>Draft No</th>
                                                 <th>Customer Name</th>
                                                 <th>
-                                                    Paid Amount
+                                                    Payable Amount
                                                 </th>
                                                 <th>
                                                     Description
@@ -46,44 +46,44 @@
                                         </thead>
                                         <tbody>
 
-                                            @if ($sells)
+                                            @if ($drafts)
 
-                                                @foreach ($sells as $key=>$sell)
+                                                @foreach ($drafts as $key=>$draft)
                                                 <tr>
                                                     <td>
                                                         {{++$key}}
                                                     </td>
                                                     <td>
-                                                        {{$sell->sell_no}}
+                                                        {{$draft->draft_no}}
                                                     </td>
                                                     <td>
-                                                       {{$sell->name}}
+                                                       {{$draft->name}}
                                                     </td>
                                                     <td>
-                                                        {{$sell->total_order_cost}}
+                                                        {{$draft->total_order_cost}}
                                                     </td>
                                                     <td>
-                                                        {{$sell->description}}
+                                                        {{$draft->description}}
                                                     </td>
                                                     <td>
-                                                        {{ date('Y-m-d h:i a ', strtotime( $sell->updated_at))}}
+                                                        {{ date('Y-m-d h:i a ', strtotime( $draft->updated_at))}}
 
                                                     </td>
                                                     <td class="td-actions text-right">
-                                                        <a rel="tooltip" class="btn btn-success btn-link" href="{{route('sell.edit', $sell->id)}}"
+                                                        <a rel="tooltip" class="btn btn-success btn-link" href="{{route('draft.edit', $draft->id)}}"
                                                             data-original-title="" title="Edit">
                                                             <i class="material-icons">edit</i>
                                                             <div class="ripple-container"></div>
                                                         </a><br>
 
-                                                        <a rel="tooltip" class="btn btn-dark btn-link" href="{{route('sell.show', $sell->id)}}"
+                                                        <a rel="tooltip" class="btn btn-dark btn-link" href="{{route('draft.show', $draft->id)}}"
                                                             data-original-title="" title="View">
                                                             <i class="material-icons">visibility</i>
                                                             <div class="ripple-container"></div>
                                                         </a>
 
 
-                                                        <form method="POST"  action="{{route('sell.destroy', $sell->id)}}">
+                                                        <form method="POST"  action="{{route('draft.destroy', $draft->id)}}">
                                                             @csrf
                                                             @method('delete')
     

@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'sellList', 'titlePage' => __('Sell List')])
+@extends('layouts.app', ['activePage' => 'draftList', 'titlePage' => __('Draft List')])
 
 @section('content')
     <div class="content">
@@ -16,16 +16,16 @@
 
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h4 class="card-title">{{ __('Sell Info') }}</h4>
-                                    <p class="card-category">Draft NO: <strong>{{$sell->sell_no}}</strong></p>
-                                    <p class="card-category">Total Amout: <strong>{{$sell->total_order_cost}}</strong></p>
+                                    <h4 class="card-title">{{ __('Draft Info') }}</h4>
+                                    <p class="card-category">Draft NO: <strong>{{$draft->draft_no}}</strong></p>
+                                    <p class="card-category">Total Amout: <strong>{{$draft->total_order_cost}}</strong></p>
 
 
                                 </div>
                                 <div class="col-md-6">
                                     <h4 class="card-title">{{ __('Customer Info') }}</h4>
-                                    <p class="card-category">Customer Name: {{$sell->customer_name}}</p>
-                                    <p class="card-category">Address: {{$sell->address}}</p>
+                                    <p class="card-category">Customer Name: {{$draft->customer_name}}</p>
+                                    <p class="card-category">Address: {{$draft->address}}</p>
 
 
                                 </div>
@@ -37,7 +37,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12 text-right">
-                                        <a href="{{route('sell.index')}}" class="btn btn-sm btn-primary">View List</a>
+                                        <a href="{{route('draft.index')}}" class="btn btn-sm btn-primary">View List</a>
                                     </div>
                                 </div>
                                 <div class="table-responsive">
@@ -61,27 +61,27 @@
                                         </thead>
                                         <tbody>
 
-                                            @if ($sell->sellDetails)
+                                            @if ($draft->draftDetails)
 
-                                                @foreach ($sell->sellDetails as $key=>$sellDetail)
+                                                @foreach ($draft->draftDetails as $key=>$draftDetail)
                                                 <tr>
                                                     <td>
                                                         {{++$key}}
                                                     </td>
                                                     <td>
-                                                        <img src="{{$sellDetail->productUnit->image}}" alt="">
+                                                        <img src="{{$draftDetail->productUnit->image}}" alt="">
                                                     </td>
                                                     <td>
-                                                        {{$sellDetail->product->name}}  {{$sellDetail->productUnit->name}}
+                                                        {{$draftDetail->product->name}}  {{$draftDetail->productUnit->name}}
                                                     </td>
                                                     <td>
-                                                       {{$sellDetail->order_quantity}}
+                                                       {{$draftDetail->order_quantity}}
                                                     </td>
                                                     <td>
-                                                        {{$sellDetail->product_unit_max_retail_price}}
+                                                        {{$draftDetail->product_unit_max_retail_price}}
                                                     </td>
                                                     <td>
-                                                        {{$sellDetail->sub_total_product_unit_max_retail_price}}
+                                                        {{$draftDetail->sub_total_product_unit_max_retail_price}}
                                                     </td>
                                                
                                                 </tr>
