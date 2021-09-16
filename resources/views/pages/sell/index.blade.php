@@ -70,11 +70,11 @@
 
                                                     </td>
                                                     <td class="td-actions text-right">
-                                                        <a rel="tooltip" class="btn btn-success btn-link" href="{{route('sell.edit', $sell->id)}}"
+                                                        {{-- <a rel="tooltip" class="btn btn-success btn-link" href="{{route('sell.edit', $sell->id)}}"
                                                             data-original-title="" title="Edit">
                                                             <i class="material-icons">edit</i>
                                                             <div class="ripple-container"></div>
-                                                        </a><br>
+                                                        </a><br> --}}
 
                                                         <a rel="tooltip" class="btn btn-dark btn-link" href="{{route('sell.show', $sell->id)}}"
                                                             data-original-title="" title="View">

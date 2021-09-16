@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductUnit;
+use App\Models\User;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Darryldecode\Cart\Cart;
 
@@ -13,10 +15,48 @@ class CartController extends Controller
     {
         $data['items'] = \Cart::getContent();
         return view('pages.cart', $data);
-        // $data['getTotal'] = \Cart::getTotal();
-        // $data['getSubTotal'] = \Cart::getSubTotal();
+        
         
         // return response()->json($data,200);
+
+    }
+
+
+    public function viewCart(){
+
+
+        $data['items'] = \Cart::getContent();
+        $data['getTotal'] = \Cart::getTotal();
+        $data['getSubTotal'] = \Cart::getSubTotal();
+        $data['categories']= Category::with(array('children'=>function($q){
+            $q->with('parent', 'children')->get();
+        }))->get();
+        return view('frontend.pages.cart', $data);
+
+    }
+
+    public function dynamicCartLoad(){
+
+        $data['items'] = \Cart::getContent();
+        $data['getTotal'] = \Cart::getTotal();
+        $data['getSubTotal'] = \Cart::getSubTotal();
+        $data['categories']= Category::with(array('children'=>function($q){
+            $q->with('parent', 'children')->get();
+        }))->get();
+        return view('frontend.pages.dynamic_cart_load', $data);
+
+    }
+
+    public function checkout(){
+
+        $data['items'] = \Cart::getContent();
+        $data['getTotal'] = \Cart::getTotal();
+        $data['getSubTotal'] = \Cart::getSubTotal();
+        $data['categories']= Category::with(array('children'=>function($q){
+            $q->with('parent', 'children')->get();
+        }))->get();
+        // $data['customer'] = User::with('customer')->where('id', Auth::id())->first();
+        return view('frontend.pages.checkout', $data);
 
     }
 

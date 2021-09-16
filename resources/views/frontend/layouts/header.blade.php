@@ -75,9 +75,9 @@
                                 
 
                                 <div class="dropdown cart-dropdown">
-                                    <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                                    <a href="{{url('/cart')}}" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                         <i class="icon-shopping-cart"></i>
-                                        <span class="cart-count"></span>
+                                        <span class="cart-count">0</span>
                                         <span class="cart-txt">Cart</span>
                                     </a>
 

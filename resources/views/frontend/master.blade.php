@@ -296,6 +296,9 @@
 
     <script src="{{asset('frontend')}}/ajax.js"></script>
 
+    @stack('js')
+
+
 </body>
 
 

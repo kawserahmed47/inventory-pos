@@ -65,32 +65,7 @@ Route::group(['middleware' => 'auth'], function () {
 	})->name('upgrade');
 });
 
-Route::group(['middleware' => 'auth'], function () {
-	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
-	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
-	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
-	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
-
-	
-	Route::resource('employee', EmployeeController::class);
-	Route::resource('supplier', SupplierController::class);
-	Route::resource('customer', CustomerController::class);
-
-
-	Route::resource('brand', BrandController::class);
-	Route::resource('category', CategoryController::class);
-	Route::resource('productType', ProductTypeController::class);
-	Route::resource('product', ProductController::class);
-	Route::resource('productUnit', ProductUnitController::class);
-	Route::resource('order', OrderController::class);
-	Route::resource('sell', SellController::class);
-
-	Route::get('all-sells', [SellController::class, 'allSells'])->name('sell.allSells');
-
 	Route::resource('cart', CartController::class);
-	Route::resource('draft', DraftController::class);
-
-	Route::get('all-drafts', [DraftController::class, 'allDrafts'])->name('draft.allDrafts');
 
 	Route::get('/cart-remove',[ CartController::class, 'destroy'])->name('cart.remove');
 	Route::get('/cart-quantity-update', [CartController::class, 'update'])->name('cart.quantity');
@@ -99,8 +74,41 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/cart-clear', [CartController::class, 'cartClear' ])->name('cart.cancel');
 	Route::get('/sells/receipt/{sell_no}', [SellController::class, 'receipt'])->name('sell.receipt');
 	Route::get('/sells/success/{sell_no}', [SellController::class, 'success'])->name('sell.success');
-
 	Route::get('/cart-bar-load', [CartController::class, 'cartBarLoad' ]);
+
+	Route::get('/cart', [CartController::class, 'viewCart']);
+	Route::get('/view-shop-cart', [CartController::class, 'dynamicCartLoad']);
+	Route::get('/checkout', [CartController::class, 'checkout']);
+
+	Route::resource('order', OrderController::class);
+
+	Route::group(['middleware' => 'auth'], function () {
+		Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
+		Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
+		Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
+		Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
+
+		
+		Route::resource('employee', EmployeeController::class);
+		Route::resource('supplier', SupplierController::class);
+		Route::resource('customer', CustomerController::class);
+
+
+		Route::resource('brand', BrandController::class);
+		Route::resource('category', CategoryController::class);
+		Route::resource('productType', ProductTypeController::class);
+		Route::resource('product', ProductController::class);
+		Route::resource('productUnit', ProductUnitController::class);
+		Route::resource('sell', SellController::class);
+
+		Route::get('all-sells', [SellController::class, 'allSells'])->name('sell.allSells');
+
+		Route::resource('draft', DraftController::class);
+
+		Route::get('all-drafts', [DraftController::class, 'allDrafts'])->name('draft.allDrafts');
+
+
+		Route::post('order-status-change', [OrderController::class, 'orderStatus']);
 
 
 
